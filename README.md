@@ -1,7 +1,7 @@
 1.  **Установите зависимости:**
      Клонировать репозиторий:
      ```bash
-     git clone <https://github.com/ivan8597/react-t.git> .
+     git clone https://github.com/ivan8597/react-t.git .
      ```
     Откройте терминал в корневой папке проекта и выполните команду:
     ```bash
