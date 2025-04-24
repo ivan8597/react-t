@@ -1,0 +1,542 @@
+.timelineBlock {
+  max-width: 1440px;
+  width: 100%;
+  margin: 20px auto;
+  padding: 20px 5%;
+  font-family: 'PT Sans', sans-serif;
+  position: relative;
+  color: #42567A; 
+
+  /* Центральная вертикальная линия */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -500px;
+    bottom: -500px;
+    left: 50%;
+    transform: translateX(-0.5px);
+    width: 1px;
+    background-color: rgba(66, 86, 122, 0.2); 
+    z-index: 1;
+  }
+
+  /* Горизонтальная линия*/
+  &::after {
+    content: '';
+    position: absolute; 
+    left: 5%;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1px;
+    background-color: rgba(66, 86, 122, 0.2); 
+    z-index: 1;
+  }
+}
+
+/* Стили для боковых линий */
+.leftBorderLine,
+.rightBorderLine {
+  content: '';
+  position: absolute;
+  top: -500px;
+  bottom: -500px;
+  width: 1px;
+  background-color: rgba(66, 86, 122, 0.2); 
+  z-index: 1; 
+}
+
+.leftBorderLine {
+  left: 5%;
+}
+
+.rightBorderLine {
+  right: 5%;
+}
+
+/* Заголовок */
+.timelineTitle {
+  font-size: 56px; 
+  font-weight: 700; 
+  text-align: left; 
+  margin-bottom: 80px; 
+  margin-left: 0; 
+  margin-right: 0; 
+  margin-top: 0; 
+  padding-left: 5%;
+  max-width: 350px; 
+}
+
+/* Часть с кругом */
+.timelineCenter {
+  position: absolute; 
+  top: 50%;          
+  left: 50%;        
+  transform: translate(-50%, -50%); 
+  width: 530px;      
+  height: 530px;     
+}
+
+.timelineCircle {
+  position: relative;
+  width: 100%; 
+  height: 100%; 
+  border: 1px solid rgba(66, 86, 122, 0.2); 
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circleValue {
+  position: absolute; 
+  font-size: 200px; 
+  font-weight: bold;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 60px; 
+  opacity: 0; 
+}
+
+.startYear {
+  color: #5D5FEF; 
+}
+
+.endYear {
+  color: #EF5DA8; 
+}
+
+/* Точки навигации */
+.timelineDot {
+  position: absolute;
+  width: 56px; 
+  height: 56px;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 1px solid transparent; 
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  transition: background-color 0.3s ease, border-color 0.3s ease; 
+
+  &::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background-color: #42567A; 
+    border-radius: 50%;
+    transition: opacity 0.3s ease;
+  }
+}
+
+/* Активное состояние точки */
+.timelineDot.active {
+  background-color: #F4F5F9; 
+  border-color: rgba(48, 62, 88, 0.5); 
+
+  &::before {
+    opacity: 0;
+  }
+
+  .dotLabel {
+    opacity: 1;
+    font-size: 20px; 
+    font-weight: 400;
+  }
+}
+
+/* Состояние при наведении */
+.timelineDot:hover {
+  background-color: #F4F5F9; 
+  border-color: rgba(48, 62, 88, 0.5); 
+
+  &::before {
+    opacity: 0;
+  }
+
+  .dotLabel {
+    opacity: 1;
+    font-size: 20px;
+    font-weight: 400;
+  }
+}
+
+/* Номер внутри точки */
+.dotLabel {
+  position: absolute;
+  opacity: 0; 
+  font-size: 14px; 
+  color: #42567A; 
+  font-weight: 400; 
+  transition: opacity 0.3s ease, font-size 0.3s ease, font-weight 0.3s ease; 
+  user-select: none;
+}
+
+/* Стили для названия активной темы */
+.themeLabel {
+  position: absolute; 
+  font-size: 20px !important; 
+  font-weight: bold !important; 
+  color: #42567A; 
+  white-space: nowrap; 
+  z-index: 9; 
+}
+
+.navigationControls {
+  position: absolute;
+  left: 10%;
+  bottom: 170px;         
+  display: flex; 
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  width: auto;
+  z-index: 1000;          
+}
+
+.periodCounter {
+  padding-right: 0; 
+  font-size: 14px;
+  color: #42567A;
+}
+
+.arrowButtons {
+  display: flex;
+  gap: 20px;
+}
+
+.arrowButton {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #F4F5F9;
+  border: 1px solid rgba(66, 86, 122, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+
+  img {
+    display: none;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #42567A;
+    -webkit-mask-size: 6px 12px;
+    mask-size: 6px 12px;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    transition: background-color 0.3s ease;
+  }
+}
+
+.arrowButtonLeft::before {
+  -webkit-mask-image: var(--arrow-left-url);
+  mask-image: var(--arrow-left-url);
+}
+
+.arrowButtonRight::before {
+  -webkit-mask-image: var(--arrow-right-url);
+  mask-image: var(--arrow-right-url);
+}
+
+.arrowButton:hover {
+  background-color: #e0e1e6;
+}
+
+/* Контейнер для слайдера и кнопки */
+.sliderContainer {
+  position: relative; 
+  margin-top: 500px;
+  padding-left: 5%;
+  box-sizing: border-box; 
+}
+
+/* Слайдер и карточки */
+.timelineSlider {
+  width: 100%;
+  overflow: hidden;
+  padding-right: 5%;
+  box-sizing: border-box; 
+}
+
+.swiperSlide {
+  width: auto; 
+  height: auto; 
+}
+
+.eventCard {
+  padding-top: 90px;
+  border-radius: 8px;
+  width: 100%; 
+  max-width: 380px; 
+  box-sizing: border-box;
+}
+
+.eventTitle {
+  font-family: 'Bebas Neue', sans-serif; 
+  font-size: 25px;
+  font-weight: 400; 
+  color:#3877EE;
+  margin-bottom: 15px; 
+  display: block; 
+  width: 41px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.eventDescription {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  color: #42567A;
+}
+
+/* Кастомная кнопка навигации */
+.customNextButton {
+  position: absolute;
+  bottom: 10px; 
+  right: 5%;
+  width: 40px;
+  height: 40px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  z-index: 10; 
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1); 
+  }
+
+  img {
+    width: 10px; 
+    height: auto;
+    display: block;
+  }
+}
+
+:global(.swiper-button-prev),
+:global(.swiper-button-next) {
+  color: #42567A !important; 
+  width: 30px !important;
+  height: 30px !important;
+  background-color: rgba(244, 245, 249, 0.7); 
+  border-radius: 50%;
+}
+
+:global(.swiper-button-prev::after),
+:global(.swiper-button-next::after) {
+  font-size: 14px !important; 
+} 
+
+/* --- Медиа-запрос для мобилки (@media (max-width: 767px)) --- */
+@media (max-width: 767px) {
+  /* --- Общие настройки блока --- */
+  .timelineBlock {
+    width: 100%; 
+    margin: 0;   
+    padding: 60px 20px 20px 20px; 
+    min-height: 100vh; 
+    box-sizing: border-box;
+
+    /* Скрываем десктопные линии */
+    &::before,
+    &::after {
+      display: none !important;
+    }
+  }
+
+  /* Скрываем десктопные боковые линии */
+  .leftBorderLine,
+  .rightBorderLine {
+    display: none !important;
+  }
+
+  /* --- Стили заголовка --- */
+  .timelineTitle {
+    margin-bottom: 50px; 
+    font-family: 'PT Sans', sans-serif; 
+    font-size: 20px; 
+    font-weight: 700; 
+    color: #42567A;
+    padding-left: 0;
+    max-width: 190px; 
+  }
+
+  /* --- Скрываем десктопный круг --- */
+  .timelineCenter {
+    display: none !important; 
+  }
+
+  .circleValue { 
+    display: flex; 
+    opacity: 1; 
+    visibility: visible; 
+    justify-content: center; 
+    align-items: center;
+    gap: 90px;           
+    font-family: 'PT Sans', sans-serif; 
+    font-size: 56px;     
+    font-weight: 700;    
+    margin-bottom: 50px;  
+    position: static; 
+    color: #42567A; 
+    .startYear {
+      color: #5D5FEF; 
+    }
+    
+    .endYear {
+      color: #EF5DA8; 
+    }
+  }
+  
+  .mobileDivider { 
+    display: block !important; 
+    height: 1px;
+    width: 100%; 
+    background-color: rgba(66, 86, 122, 0.2); 
+    margin-bottom: 20px; 
+  }
+
+  /* --- Слайдер и карточки --- */
+  .sliderContainer {
+    padding-left: 0;  
+    margin-top: 0; 
+    margin-bottom: 30px; 
+    order: 2; 
+  }
+
+  .timelineSlider {
+    padding-right: 0; 
+    padding-bottom: 0; 
+  }
+  
+  .eventTitle {
+       font-family: 'Bebas Neue', sans-serif; 
+       font-size: 16px;
+       font-weight: 400; 
+       color:#3877EE;
+       margin-bottom: 15px; 
+       display: block; 
+       width: 26px;
+       height: 19px;
+       line-height: 19px;
+       text-align: center;
+       overflow: hidden;
+  }
+  .eventDescription {
+       font-family: 'PT Sans', sans-serif;
+       font-size: 14px;
+       font-weight: 400;
+       color: #42567A;
+  }
+
+  /* --- Пагинация Swiper (точки) --- */
+  .swiperPaginationContainer { 
+    display: flex !important; 
+    position: relative;
+    width: auto;
+    justify-content: center; 
+   } 
+
+  
+  .mobileBottomRow .navigationControls { 
+    display: flex !important; 
+    position: static;          
+    flex-direction: column; 
+    align-items: flex-start; 
+    padding-left: 0;        
+    margin-bottom: 0;    
+    gap: 10px; 
+    width: auto; 
+    z-index: auto;   
+    flex-shrink: 0; 
+  }
+
+  .mobileBottomRow .arrowButton { 
+    display: flex !important; 
+    width: 25px; 
+    height: 25px; 
+    border-radius: 50%;
+    background-color: #F4F5F9;
+    border: 1px solid rgba(66, 86, 122, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+
+    img {
+      display: none;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: #42567A;
+      mask-size: 8px 8px;     
+      mask-repeat: no-repeat;
+      mask-position: center;
+    }
+  }
+
+  .mobileBottomRow {
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start; 
+    width: auto; 
+    margin-top: -60px; 
+    position: relative; 
+    z-index: 1; 
+    margin-left: 0; 
+  }
+
+  // Пагинация
+  :global(.swiper-pagination) {
+    display: flex !important; 
+    position: static !important; 
+    justify-content: center !important; 
+    align-items: center !important; 
+    width: 100% !important; 
+    margin-top: 100px !important; 
+    
+  }
+  
+  // Точки
+  :global(.swiper-pagination-bullet) { 
+    display: block !important; 
+    width: 6px !important; 
+    height: 6px !important; 
+    background-color: rgba(66, 86, 122, 0.5) !important; 
+    opacity: 1 !important; 
+    margin: 0 4px !important; 
+  }
+  :global(.swiper-pagination-bullet-active) { 
+      background-color: #42567A !important; 
+  }
+} 
